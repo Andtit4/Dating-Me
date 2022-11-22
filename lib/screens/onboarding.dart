@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'dart:ffi';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:dating/screens/getStarted.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -23,9 +25,17 @@ class OnBoarding extends StatefulWidget {
 class _OnBoardingState extends State<OnBoarding> {
   //Controller
 
+  void GetNextPage() {
+    Timer(
+        const Duration(seconds: 4),
+        () =>
+            Get.offAll(() => const GetStartedPage(), transition: Transition.leftToRight));
+  }
+
   @override
   void initState() {
     super.initState();
+    GetNextPage();
   }
 
   @override
@@ -59,7 +69,8 @@ class _OnBoardingState extends State<OnBoarding> {
               AnimatedTextKit(totalRepeatCount: 1, animatedTexts: [
                 ColorizeAnimatedText('© AndTit',
                     speed: const Duration(microseconds: 150),
-                    textStyle: const TextStyle(fontFamily: 'poppins', fontSize: 16),
+                    textStyle:
+                        const TextStyle(fontFamily: 'poppins', fontSize: 16),
                     colors: [Colors.pink, Colors.orange]),
               ])
             ],
