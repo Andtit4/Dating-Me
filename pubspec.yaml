@@ -29,11 +29,13 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  animated_text_kit: ^4.2.2
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
   get: ^4.6.5
   google_fonts: ^3.0.1
+  lottie: ^2.0.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0
@@ -50,8 +52,8 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - assets/img/
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -62,10 +64,13 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+    - family: caramel
+      fonts:
+        - asset: assets/font/Caramel.ttf
+    - family: poppins
+      fonts:
+        - asset: assets/font/Poppins.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
