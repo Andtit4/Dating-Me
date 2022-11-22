@@ -31,6 +31,8 @@ environment:
 dependencies:
   animated_text_kit: ^4.2.2
   cupertino_icons: ^1.0.2
+  firebase_auth: ^4.1.3
+  firebase_core: ^2.3.0
   flukit_icons:
     git:
       url: https://github.com/charles9904/flukit_icons.git
@@ -38,6 +40,7 @@ dependencies:
     sdk: flutter
   get: ^4.6.5
   google_fonts: ^3.0.1
+  intl_phone_field: ^3.1.0
   lottie: ^2.0.0
 
 dev_dependencies:

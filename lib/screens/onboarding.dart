@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:ffi';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:dating/screens/getStarted.dart';
+import 'package:dating/screens/register.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -28,8 +28,9 @@ class _OnBoardingState extends State<OnBoarding> {
   void GetNextPage() {
     Timer(
         const Duration(seconds: 4),
-        () =>
-            Get.offAll(() => const GetStartedPage(), transition: Transition.leftToRight));
+        () => Get.offAll(() => const RegisterPage(),
+            transition: Transition.leftToRight,
+            duration: Duration(milliseconds: 500)));
   }
 
   @override
