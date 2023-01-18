@@ -240,7 +240,55 @@ class _RegisterPageState extends State<RegisterPage> {
                         )),
                   ],
                 ),
-              )
+              ),
+              SizedBox(
+                height: height * .2,
+              ),
+              // Spacer(),
+              Align(
+                alignment: Alignment.center,
+                child: Column(
+                  children: [
+                    Text("Login with",
+                        style: GoogleFonts.poppins(
+                            fontSize: sizeDefault, color: Colors.grey)),
+                    GestureDetector(
+                      onTap: () {
+                        Vibration.vibrate(amplitude: 30, duration: 30);
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        height: height * .08,
+                        margin: EdgeInsets.only(top: 10),
+                        decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(25),
+                            border: Border.all(width: 2, color: Colors.white)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            FluIcon(
+                              FluIcons.google,
+                              style: FluIconStyles.broken,
+                              color: Colors.blue,
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(left: 10),
+                              child: Text(
+                                "Login with Google",
+                                style: GoogleFonts.poppins(
+                                    fontSize: sizeDefault,
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
