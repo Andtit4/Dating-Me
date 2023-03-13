@@ -2,10 +2,12 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dating/screens/login.dart';
 import 'package:dating/services/send_whatsapp.dart';
 import 'package:dating/widgets/textBold.dart';
 import 'package:flukit_icons/flukit_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:progress_indicator/progress_indicator.dart';
 import 'package:story_view/story_view.dart';
@@ -138,6 +140,10 @@ class _TiStoryState extends State<TiStory> {
                                       setState(() {
                                         showHome = !showHome;
                                       });
+                                      Get.to(() => LoginScreen(),
+                                          transition: Transition.leftToRight,
+                                          duration:
+                                              Duration(milliseconds: 700));
                                       print(showHome);
                                     },
                                     child: Container(
@@ -169,7 +175,7 @@ class _TiStoryState extends State<TiStory> {
                                     ),
                                   ),
                                 )
-                              : SizedBox()
+                              : const SizedBox()
                         ],
                       ),
                       Column(
