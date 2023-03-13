@@ -53,8 +53,12 @@ class _TiStoryState extends State<TiStory> {
       } else {
         // _controller.nextPage(duration: duration, curve: curve)
         // _controller.initialPage()
-        _controller.nextPage(
-            duration: Duration(milliseconds: 400), curve: Curves.ease);
+        if (currentPage == 7) {
+          _controller.jumpToPage(0);
+        } else {
+          _controller.nextPage(
+              duration: Duration(milliseconds: 400), curve: Curves.ease);
+        }
       }
     });
   }
@@ -94,6 +98,7 @@ class _TiStoryState extends State<TiStory> {
             child: PageView(
                 scrollDirection: Axis.vertical,
                 physics: BouncingScrollPhysics(),
+                // scrollBehavior: ScrollBehavior,
                 onPageChanged: (index) {
                   setState(() {
                     progressIndex = 0;
@@ -101,9 +106,11 @@ class _TiStoryState extends State<TiStory> {
                   });
 
                   if (currentPage == 7) {
-                    setState(() {
-                      currentPage = 0;
-                    });
+                    /* setState(() {
+                      // _controller = PageController(initialPage: 0);
+                      // _controller.jumpToPage(0);
+                      // _controller.dispose();
+                    }); */
                   }
                 },
                 controller: _controller,
