@@ -41,17 +41,20 @@ class _TiStoryState extends State<TiStory> {
   late bool pressed2 = false;
   double progressIndex = 0;
   Timer? timer;
-  PageController _controller = PageController(initialPage: 0);
+  late int currentPage = 0;
+  PageController _controller = PageController();
 
   increment() {
-    timer = Timer.periodic(Duration(milliseconds: 50), (timer) {
+    timer = Timer.periodic(Duration(milliseconds: 100), (timer) {
       if (progressIndex != 100) {
         setState(() {
           progressIndex++;
         });
       } else {
-        /* _controller.nextPage(
-            duration: Duration(milliseconds: 100), curve: Curves.ease); */
+        // _controller.nextPage(duration: duration, curve: curve)
+        // _controller.initialPage()
+        _controller.nextPage(
+            duration: Duration(milliseconds: 400), curve: Curves.ease);
       }
     });
   }
@@ -64,6 +67,7 @@ class _TiStoryState extends State<TiStory> {
     // TODO: implement initState
     super.initState();
     increment();
+    _controller = PageController(initialPage: currentPage);
     // _controller.initialPage;
   }
 
@@ -90,6 +94,18 @@ class _TiStoryState extends State<TiStory> {
             child: PageView(
                 scrollDirection: Axis.vertical,
                 physics: BouncingScrollPhysics(),
+                onPageChanged: (index) {
+                  setState(() {
+                    progressIndex = 0;
+                    currentPage = index;
+                  });
+
+                  if (currentPage == 7) {
+                    setState(() {
+                      currentPage = 0;
+                    });
+                  }
+                },
                 controller: _controller,
                 children: widget.img
                     .map(
