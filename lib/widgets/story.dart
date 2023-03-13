@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:dating/services/send_whatsapp.dart';
@@ -37,9 +38,35 @@ class _TiStoryState extends State<TiStory> {
   late bool pressed = false;
   late bool pressed1 = false;
   late bool pressed2 = false;
+  double progressIndex = 0;
+  Timer? timer;
+
+  increment() {
+    timer = Timer.periodic(Duration(milliseconds: 100), (timer) {
+      if (progressIndex != 100) {
+        setState(() {
+          progressIndex++;
+        });
+      }
+    });
+  }
 
   // get width => null;
   // final StoryController controller = StoryController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    increment();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    // timer.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +104,7 @@ class _TiStoryState extends State<TiStory> {
                       ),
                       TiTextBold(
                           fontSize: 26,
-                          text: 'Best selection',
+                          text: 'Our selections',
                           color: Colors.white)
                     ],
                   )),
@@ -278,7 +305,7 @@ class _TiStoryState extends State<TiStory> {
           Align(
             alignment: Alignment.bottomCenter,
             child: BarProgress(
-                percentage: 10,
+                percentage: progressIndex,
                 backColor: Color.fromARGB(118, 255, 255, 255),
                 showPercentage: false,
                 color: Colors.white,
