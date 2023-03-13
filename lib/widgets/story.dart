@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dating/services/send_whatsapp.dart';
 import 'package:dating/widgets/textBold.dart';
 import 'package:flukit_icons/flukit_icons.dart';
@@ -12,7 +13,7 @@ import 'package:vibration/vibration.dart';
 
 class TiStory extends StatefulWidget {
   // final List<String> img;
-  late String img;
+  late List<String> img;
   late String nameForUser;
   late String gender;
   late String userAge;
@@ -40,13 +41,17 @@ class _TiStoryState extends State<TiStory> {
   late bool pressed2 = false;
   double progressIndex = 0;
   Timer? timer;
+  PageController _controller = PageController(initialPage: 0);
 
   increment() {
-    timer = Timer.periodic(Duration(milliseconds: 100), (timer) {
+    timer = Timer.periodic(Duration(milliseconds: 50), (timer) {
       if (progressIndex != 100) {
         setState(() {
           progressIndex++;
         });
+      } else {
+        /* _controller.nextPage(
+            duration: Duration(milliseconds: 100), curve: Curves.ease); */
       }
     });
   }
@@ -59,12 +64,14 @@ class _TiStoryState extends State<TiStory> {
     // TODO: implement initState
     super.initState();
     increment();
+    // _controller.initialPage;
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
+
     // timer.dispose();
   }
 
@@ -80,10 +87,41 @@ class _TiStoryState extends State<TiStory> {
           SizedBox(
             width: widget.width,
             height: widget.height,
-            child: Image.network(
-              widget.img,
-              fit: BoxFit.cover,
-            ),
+            child: PageView(
+                scrollDirection: Axis.vertical,
+                physics: BouncingScrollPhysics(),
+                controller: _controller,
+                children: widget.img
+                    .map(
+                      (e) => CachedNetworkImage(
+                        imageUrl: e,
+                        imageBuilder: (context, imageProvider) => Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.cover,
+                              /* colorFilter: ColorFilter.mode(
+                                    Colors.red, BlendMode.colorBurn) */
+                            ),
+                          ),
+                        ),
+                        /*  placeholder: (context, url) =>
+                            CircularProgressIndicator(),
+                        errorWidget: (context, url, error) => Icon(Icons.error), */
+                      ),
+
+                      /*  Image.network(
+                        e,
+                        fit: BoxFit.cover,
+                      ), */
+                    )
+                    .toList()
+                /* Image.network(
+                  e,
+                  fit: BoxFit.cover,
+                ), */
+
+                ),
           ),
           SizedBox(
             width: widget.width,
