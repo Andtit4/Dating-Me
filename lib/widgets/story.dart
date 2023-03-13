@@ -43,6 +43,7 @@ class _TiStoryState extends State<TiStory> {
   Timer? timer;
   late int currentPage = 0;
   PageController _controller = PageController();
+  late bool showHome = false;
 
   increment() {
     timer = Timer.periodic(Duration(milliseconds: 100), (timer) {
@@ -51,8 +52,6 @@ class _TiStoryState extends State<TiStory> {
           progressIndex++;
         });
       } else {
-        // _controller.nextPage(duration: duration, curve: curve)
-        // _controller.initialPage()
         if (currentPage == 7) {
           _controller.jumpToPage(0);
         } else {
@@ -63,24 +62,16 @@ class _TiStoryState extends State<TiStory> {
     });
   }
 
-  // get width => null;
-  // final StoryController controller = StoryController();
-
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     increment();
     _controller = PageController(initialPage: currentPage);
-    // _controller.initialPage;
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
-
-    // timer.dispose();
   }
 
   @override
@@ -104,14 +95,6 @@ class _TiStoryState extends State<TiStory> {
                     progressIndex = 0;
                     currentPage = index;
                   });
-
-                  if (currentPage == 7) {
-                    /* setState(() {
-                      // _controller = PageController(initialPage: 0);
-                      // _controller.jumpToPage(0);
-                      // _controller.dispose();
-                    }); */
-                  }
                 },
                 controller: _controller,
                 children: widget.img
@@ -123,28 +106,12 @@ class _TiStoryState extends State<TiStory> {
                             image: DecorationImage(
                               image: imageProvider,
                               fit: BoxFit.cover,
-                              /* colorFilter: ColorFilter.mode(
-                                    Colors.red, BlendMode.colorBurn) */
                             ),
                           ),
                         ),
-                        /*  placeholder: (context, url) =>
-                            CircularProgressIndicator(),
-                        errorWidget: (context, url, error) => Icon(Icons.error), */
                       ),
-
-                      /*  Image.network(
-                        e,
-                        fit: BoxFit.cover,
-                      ), */
                     )
-                    .toList()
-                /* Image.network(
-                  e,
-                  fit: BoxFit.cover,
-                ), */
-
-                ),
+                    .toList()),
           ),
           SizedBox(
             width: widget.width,
@@ -156,17 +123,73 @@ class _TiStoryState extends State<TiStory> {
                   bottom: 0,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    // crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        margin: EdgeInsets.only(left: 10),
-                        width: widget.width * .2,
-                        height: 1,
-                        color: Colors.purpleAccent,
+                      Row(
+                        children: [
+                          ClipRect(
+                              child: BackdropFilter(
+                                  filter:
+                                      ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Vibration.vibrate(
+                                          amplitude: 30, duration: 30);
+                                      setState(() {
+                                        showHome = !showHome;
+                                      });
+                                      print(showHome);
+                                    },
+                                    child: Container(
+                                      width: widget.width * .15,
+                                      height: widget.height * .06,
+                                      margin: EdgeInsets.only(
+                                          top: widget.height * .01),
+                                      decoration: BoxDecoration(
+                                          color: Color.fromARGB(
+                                              61, 255, 255, 255)),
+                                      child: FluIcon(FluIcons.home,
+                                          color: Colors.white),
+                                    ),
+                                  ))),
+                          showHome == true
+                              ? AnimatedContainer(
+                                  duration: Duration(milliseconds: 1000),
+                                  curve: Curves.easeIn,
+                                  width: widget.width * .2,
+                                  height: widget.height * .06,
+                                  margin:
+                                      EdgeInsets.only(top: widget.height * .01),
+                                  color: Color.fromARGB(61, 255, 255, 255),
+                                  child: Center(
+                                    child: Text(
+                                      'Home',
+                                      style: GoogleFonts.poppins(
+                                          color: Colors.white),
+                                    ),
+                                  ),
+                                )
+                              : SizedBox()
+                        ],
                       ),
-                      TiTextBold(
-                          fontSize: 26,
-                          text: 'Our selections',
-                          color: Colors.white)
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: widget.height * .03,
+                          ),
+                          TiTextBold(
+                              fontSize: 26,
+                              text: 'Only for You',
+                              color: Colors.white),
+                          Container(
+                            margin: EdgeInsets.only(top: 5),
+                            width: widget.width * .2,
+                            height: 1,
+                            color: Colors.purpleAccent,
+                          ),
+                        ],
+                      ),
                     ],
                   )),
             ),
