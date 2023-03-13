@@ -76,8 +76,8 @@ class _TiStoryState extends State<TiStory> {
                               pressed1 = false;
                               pressed2 = false;
                             });
-                            SendToWhatsapp()
-                                .launchWhatsApp(22898418900, 'Contact Moi');
+                            SendToWhatsapp().launchWhatsApp(22898418900,
+                                'Je suis John Doe, et je veux faire plus connaissance avec toi');
                           },
                           icon: FluIcon(
                             FluIcons.whatsapp,
@@ -105,6 +105,8 @@ class _TiStoryState extends State<TiStory> {
                               pressed1 = true;
                               pressed2 = false;
                             });
+                            SendToWhatsapp().textMe(22898418900,
+                                'Je suis John Doe, et je veux faire plus connaissance avec toi');
                           },
                           icon: FluIcon(
                             FluIcons.smsEdit,

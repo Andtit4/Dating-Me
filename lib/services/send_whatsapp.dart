@@ -7,7 +7,7 @@ class SendToWhatsapp extends StatefulWidget {
   const SendToWhatsapp({super.key});
 
   void launchWhatsApp(phone, text) async {
-   var whatsapp = phone; //+92xx enter like this
+    var whatsapp = phone; //+92xx enter like this
     var whatsappURlAndroid =
         "whatsapp://send?phone=" + whatsapp.toString() + "&text=$text";
     var whatsappURLIos = "https://wa.me/$whatsapp?text=${Uri.tryParse(text)}";
@@ -18,7 +18,7 @@ class SendToWhatsapp extends StatefulWidget {
           whatsappURLIos,
         ));
       } else {
-       /*  ScaffoldMessenger.of(context).showSnackBar(
+        /*  ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text("Whatsapp not installed"))); */
       }
     } else {
@@ -30,7 +30,36 @@ class SendToWhatsapp extends StatefulWidget {
             const SnackBar(content: Text("Whatsapp not installed"))); */
       }
     }
+  }
 
+  void textMe(phone, text) async {
+    String? encodeQueryParameters(Map<String, String> params) {
+      return params.entries
+          .map((e) =>
+              '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+          .join('&');
+    }
+
+    var smsUri = Uri(
+      scheme: 'sms',
+      path: phone.toString(),
+      query: encodeQueryParameters(<String, String>{'body': '$text'}),
+    );
+
+    try {
+      print(smsUri.toString());
+      if (await canLaunchUrl(
+        smsUri,
+      )) {
+        await launchUrl(smsUri);
+      }
+    } catch (e) {
+      /* ScaffoldMessenger.of(context).showSnackBar(
+    const SnackBar(
+      content: const Text('Some error occured'),
+    ),
+  ); */
+    }
   }
 
   @override
