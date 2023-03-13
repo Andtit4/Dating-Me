@@ -18,7 +18,11 @@ class _RegisterPageState extends State<RegisterPage> {
       body: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: TiStory(
+              description:
+                  'Aliquid non maiores. Porro voluptas voluptatem adipisci. Atque tempore eos ipsa. Aut quas maxime error sequi sit et ipsam.',
               nameForUser: 'Sarah Armis',
+              userAge: '21',
+              gender: 'Male',
               img:
                   'https://cdn.pixabay.com/photo/2019/09/16/09/30/alone-4480442_960_720.jpg',
               width: width,

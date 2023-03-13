@@ -13,14 +13,20 @@ class TiStory extends StatefulWidget {
   // final List<String> img;
   late String img;
   late String nameForUser;
+  late String gender;
+  late String userAge;
   late double width;
   late double height;
+  late String description;
 
   TiStory(
       {super.key,
       required this.img,
       required this.width,
       required this.nameForUser,
+      required this.userAge,
+      required this.gender,
+      required this.description,
       required this.height});
 
   @override
@@ -50,6 +56,31 @@ class _TiStoryState extends State<TiStory> {
             child: Image.network(
               widget.img,
               fit: BoxFit.cover,
+            ),
+          ),
+          SizedBox(
+            width: widget.width,
+            height: widget.height * .15,
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Positioned(
+                  top: widget.height * .08,
+                  bottom: 0,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(left: 10),
+                        width: widget.width * .2,
+                        height: 1,
+                        color: Colors.purpleAccent,
+                      ),
+                      TiTextBold(
+                          fontSize: 26,
+                          text: 'Best selection',
+                          color: Colors.white)
+                    ],
+                  )),
             ),
           ),
           Positioned(
@@ -169,11 +200,75 @@ class _TiStoryState extends State<TiStory> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                widget.nameForUser,
-                                style: GoogleFonts.poppins(
-                                    fontSize: 24, color: Colors.white),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Row(
+                                    children: [
+                                      FluIcon(FluIcons.woman,
+                                          color: Colors.white),
+                                      Text(
+                                        widget.nameForUser,
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 24, color: Colors.white),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(left: 10),
+                                        child: Text(widget.userAge,
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 20,
+                                                color: Colors.white)),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(right: 10),
+                                        child: Text('💕',
+                                            style: GoogleFonts.poppins(
+                                              fontSize: 20,
+                                            )),
+                                      ),
+                                      Text(widget.gender,
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 20,
+                                              color: Colors.white)),
+                                    ],
+                                  )
+                                ],
                               ),
+                              Container(
+                                padding: EdgeInsets.all(8),
+                                child: Text(
+                                  widget.description,
+                                  style: GoogleFonts.poppins(
+                                      color:
+                                          Color.fromARGB(255, 204, 203, 203)),
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment.bottomRight,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Vibration.vibrate(
+                                        amplitude: 30, duration: 30);
+                                  },
+                                  child: Container(
+                                    width: widget.width * .22,
+                                    height: widget.height * .05,
+                                    decoration:
+                                        BoxDecoration(color: Colors.pink),
+                                    child: Center(
+                                        child: Text(
+                                      'Match',
+                                      style: GoogleFonts.poppins(
+                                          color: Colors.white),
+                                    )),
+                                  ),
+                                ),
+                              )
                             ],
                           ),
                         )),
